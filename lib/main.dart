@@ -1,232 +1,157 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Home(),
-  ));
+void main(){
+  runApp(MyApp());
 }
 
-class Home extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  String output = "0";
+  String _output = "0";
+  double num1 = 0.0;
+  double num2 = 0.0;
+  String operand = "";
+
+  operation(String btntext){
+    if( btntext == "C"){
+      _output = "0";
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+    }
+    else if(btntext == "+" || btntext == "-" || btntext == "x" || btntext == "/"){
+      num1 = double.parse(output);
+      operand = btntext;
+      _output = "0";
+    }
+    else if(btntext == "="){
+      num2 = double.parse(output);
+
+      if(operand == "+"){
+        _output = (num1 + num2).toString();
+      }
+      if(operand == "-"){
+        _output = (num1 - num2).toString();
+      }
+      if(operand == "x"){
+        _output = (num1 * num2).toString();
+      }
+      if(operand == "/"){
+        _output = (num1 / num2).toString();
+      }
+
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+    }
+    else {
+      _output = _output + btntext;
+    }
+    
+    setState(() {
+      output = double.parse(_output).toStringAsFixed(2);
+    });
+  }
+
+  Widget button(String btntext)=> Expanded(
+      child: RawMaterialButton(
+        shape: Border.all(color: Colors.black12, width: 2),
+        padding: EdgeInsets.all(20),
+        child: Text(
+          "$btntext",
+          style: TextStyle(
+            fontSize: 24,
+          ),
+        ),
+        onPressed: (){
+          operation(btntext);
+        },
+      ),
+    );
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        leading: Icon(Icons.home),
-        backgroundColor: Colors.blue,
-      ),
-      body: Container(
-        //padding: EdgeInsets.all(5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product1.1",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product1.2",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product1.3",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product1.4",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-              ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Caculator",
+            style: TextStyle(
+              color: Colors.black,
             ),
-            Column(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product2.1",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
+          ),
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black,width: 3),
+                  ),
+                  padding: EdgeInsets.all(20),
+                  margin: EdgeInsets.all(8),
+                  child: Text(
+                      "$output",
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.black,
                     ),
                   ),
                 ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product2.2",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product2.3",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product2.4",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product3.1",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product3.2",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product3.3",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.all(10),
-                  color: Colors.orange,
-                  child: Center(
-                    child: Text(
-                        "Product3.4",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        )
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+              Row(
+                children: [
+                  button("C"),
+                  button("("),
+                  button(")"),
+                  button("Del"),
+                ],
+              ),
+              Row(
+                children: [
+                  button("7"),
+                  button("8"),
+                  button("9"),
+                  button("x"),
+                ],
+              ),
+              Row(
+                children: [
+                  button("4"),
+                  button("5"),
+                  button("6"),
+                  button("-"),
+                ],
+              ),
+              Row(
+                children: [
+                  button("1"),
+                  button("2"),
+                  button("3"),
+                  button("+"),
+                ],
+              ),
+              Row(
+                children: [
+                  button("."),
+                  button("0"),
+                  button("/"),
+                  button("="),
+                ],
+              ),
+            ],
+          )
         ),
       ),
     );
