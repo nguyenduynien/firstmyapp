@@ -65,6 +65,10 @@ flutter:
       fonts:
         - asset: fonts/OpenSans-Light.ttf
         - asset: fonts/OpenSans-SemiBoldItalic.ttf
+    - family: Arizonia
+      fonts:
+        - asset: fonts/Arizonia-Regular.ttf
+          weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
